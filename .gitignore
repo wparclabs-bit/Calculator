@@ -1,0 +1,6 @@
+﻿# Factory Ignore List
+.env
+*.log
+__pycache__/
+.venv/
+node_modules/
