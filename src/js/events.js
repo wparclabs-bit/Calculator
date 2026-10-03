@@ -47,7 +47,7 @@ const CalcEvents = (() => {
   }
   /**
    * Handler map keyed by the data-action values in src/index.html.
-   * 'pow' and 'fact' are intentionally absent (deferred per Task 04).
+   * 'pow' is wired below; 'fact' is intentionally absent (deferred).
    */
   const handlers = {
     'open-paren': () => append('('),
@@ -57,6 +57,7 @@ const CalcEvents = (() => {
     backspace: backspace,
     negate: toggleSign,
     equals: evaluate,
+    'pow': () => append('^'),
   };
   const opSymbols = { 'op-add': '+', 'op-subtract': '-', 'op-multiply': '*', 'op-divide': '/' };
   for (const [action, sym] of Object.entries(opSymbols)) handlers[action] = () => append(sym);
