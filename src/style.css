@@ -1,0 +1,282 @@
+/* ============================================================
+   Scientific Calculator — Styles
+   Modular sections below follow ADR-01 file-size budget (~300 lines).
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   1. Custom Properties (Design Tokens)
+   ---------------------------------------------------------- */
+:root {
+  /* Colours */
+  --color-bg:          #1a1a2e;
+  --color-surface:     #16213e;
+  --color-surface-alt: #0f3460;
+  --color-display-bg:  #0a0a14;
+  --color-text:        #e0e0e0;
+  --color-text-dim:    #8892a0;
+  --color-accent:      #e94560;
+  --color-accent-hi:   #ff6b81;
+  --color-btn-sci:     #1a1a40;
+  --color-btn-sci-hi:  #2a2a5e;
+  --color-btn-op:      #16213e;
+  --color-btn-op-hi:   #1f3056;
+  --color-btn-num:     #22224a;
+  --color-btn-num-hi:  #2e2e62;
+  --color-btn-eq:      #e94560;
+  --color-btn-eq-hi:   #ff6b81;
+  --color-focus:       #ffd700;
+
+  /* Typography */
+  --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-size-expr: 1rem;
+  --font-size-result: 2.25rem;
+  --font-size-btn: 1.125rem;
+
+  /* Spacing */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  12px;
+  --space-lg:  16px;
+  --space-xl:  24px;
+
+  /* Border radius */
+  --radius-btn: 8px;
+  --radius-display: 12px;
+
+  /* Transition (minimal, usability-only) */
+  --transition-fast: 100ms ease;
+}
+
+/* ----------------------------------------------------------
+   2. Reset & Base
+   ---------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden; /* prevent scroll on mobile */
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--color-bg);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+}
+
+/* ----------------------------------------------------------
+   3. Calculator Shell
+   ---------------------------------------------------------- */
+.calculator {
+  width: 100%;
+  max-width: 480px;
+  background: var(--color-surface);
+  border-radius: var(--radius-display);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* ----------------------------------------------------------
+   4. Display Area
+   ---------------------------------------------------------- */
+.display {
+  background: var(--color-display-bg);
+  border-radius: var(--radius-display);
+  padding: var(--space-lg);
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: var(--space-xs);
+  overflow: hidden;
+}
+
+.display__expression {
+  font-size: var(--font-size-expr);
+  color: var(--color-text-dim);
+  word-break: break-all;
+  text-align: right;
+  width: 100%;
+  min-height: 1.4em;
+}
+
+.display__result {
+  font-size: var(--font-size-result);
+  font-weight: 600;
+  color: var(--color-text);
+  word-break: break-all;
+  text-align: right;
+  width: 100%;
+  line-height: 1.2;
+}
+
+/* ----------------------------------------------------------
+   5. Button Grid
+   ---------------------------------------------------------- */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-sm);
+}
+
+/* ----------------------------------------------------------
+   6. Base Button
+   ---------------------------------------------------------- */
+.btn {
+  font-family: var(--font-family);
+  font-size: var(--font-size-btn);
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  color: var(--color-text);
+  background: var(--color-btn-num);
+  min-height: 56px; /* ≥44px touch target */
+  min-width: 0;    /* allow grid to shrink on small viewports */
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+  user-select: none;
+}
+
+.btn:hover {
+  background: var(--color-btn-num-hi);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+/* ----------------------------------------------------------
+   7. Button Variants
+   ---------------------------------------------------------- */
+
+/* Scientific function buttons */
+.btn--sci {
+  background: var(--color-btn-sci);
+  font-size: 0.9375rem;
+}
+.btn--sci:hover {
+  background: var(--color-btn-sci-hi);
+}
+
+/* Operator buttons (+ − × ÷) */
+.btn--op {
+  background: var(--color-btn-op);
+  font-size: 1.375rem;
+}
+.btn--op:hover {
+  background: var(--color-btn-op-hi);
+}
+
+/* Action buttons (C, ⌫, ±) */
+.btn--action {
+  background: var(--color-btn-sci);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+.btn--action:hover {
+  background: var(--color-btn-sci-hi);
+}
+
+/* Equals button */
+.btn--equals {
+  background: var(--color-btn-eq);
+  font-weight: 700;
+  font-size: 1.375rem;
+}
+.btn--equals:hover {
+  background: var(--color-btn-eq-hi);
+}
+
+/* Wide button (spans 2 columns for the "0" key) */
+.btn--wide {
+  grid-column: span 2;
+  aspect-ratio: unset;
+}
+
+/* ----------------------------------------------------------
+   8. Responsive — Mobile (320px+)
+   ---------------------------------------------------------- */
+@media (max-width: 375px) {
+  :root {
+    --font-size-result: 1.75rem;
+    --font-size-btn:    1rem;
+    --space-lg:         12px;
+    --space-md:         8px;
+  }
+
+  .calculator {
+    padding: var(--space-md);
+  }
+
+  .display {
+    padding: var(--space-md);
+    min-height: 80px;
+  }
+
+  .btn {
+    min-height: 48px;
+  }
+}
+
+/* ----------------------------------------------------------
+   9. Responsive — Tablet / Desktop
+   ---------------------------------------------------------- */
+@media (min-width: 768px) {
+  :root {
+    --font-size-result: 2.75rem;
+    --font-size-btn:    1.25rem;
+  }
+
+  .calculator {
+    max-width: 520px;
+    padding: var(--space-xl);
+  }
+}
+
+/* ----------------------------------------------------------
+   10. Responsive — Large Desktop (1920px)
+   ---------------------------------------------------------- */
+@media (min-width: 1440px) {
+  :root {
+    --font-size-result: 3rem;
+    --font-size-btn:    1.375rem;
+  }
+
+  .calculator {
+    max-width: 560px;
+  }
+}
+
+/* ----------------------------------------------------------
+   11. Reduced Motion
+   ---------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+  .btn:active {
+    transform: none;
+  }
+}
