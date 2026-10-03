@@ -42,26 +42,56 @@ The core math engine (Task 03) provides `CalcState` (state + Pub/Sub), `CalcPars
 </div>
 ```
 
-**CalcState API (from Task 03):**
+**CalcState API (from merged `src/js/state.js`):**
 ```js
-CalcState.expression   // current expression string
-CalcState.result       // last computed result
-CalcState.error        // error message or null
-CalcState.setExpression(val)
-CalcState.setResult(val)
-CalcState.setError(msg)
-CalcState.clear()
-CalcState.subscribe(key, callback)  // key: 'expression' | 'result' | 'error'
+// Getters
+CalcState.expression   // string — current expression
+CalcState.result       // string — last computed result
+CalcState.error        // string | null — error message or null
+
+// Setters (all notify subscribers)
+CalcState.setExpression(val: string)
+CalcState.setResult(val: string)
+CalcState.setError(msg: string | null)
+CalcState.clear()        // resets expression, result, error; notifies all
+
+// Pub/Sub
+CalcState.subscribe(key: 'expression' | 'result' | 'error', fn: (value) => void)
+CalcState.notify(key: 'expression' | 'result' | 'error')  // internal; notifies subscribers
 ```
 
-**CalcParser API (from Task 03):**
+**CalcParser API (from merged `src/js/parser.js`):**
 ```js
-CalcParser.parse(expression)  // returns AST object or null on syntax error
+CalcParser.parse(expression: string): Object | null
+// Returns AST node or null if expression is empty/whitespace.
+// AST node types:
+//   { type: 'Number', value: number }
+//   { type: 'Operator', op: '+'|'-'|'*'|'/'|'^', left: AST, right: AST }
+//   { type: 'FunctionCall', name: 'sqrt'|'sin'|'cos'|'tan'|'log'|'ln', arg: AST }
+//   { type: 'UnaryOperator', op: '-'|'+', arg: AST }
+// Throws Error on syntax errors (unknown identifier, unexpected character, unmatched paren).
 ```
 
-**CalcEvaluator API (from Task 03):**
+**CalcEvaluator API (from merged `src/js/evaluator.js`):**
 ```js
-CalcEvaluator.evaluate(ast)  // returns number or throws on domain error
+CalcEvaluator.evaluate(node: Object | null): number
+// Accepts AST node from CalcParser; returns rounded number (10 decimal precision).
+// Throws Error on:
+//   - Division by zero: "Cannot divide by zero"
+//   - Domain errors: "Cannot take square root of a negative number",
+//                    "Cannot take logarithm of a non-positive number"
+//   - Unknown node type: "Unknown AST node type: <type>"
+//   - Unsupported operator/function: "Unsupported operator/function: <name>"
+```
+
+**CalcConstants API (from merged `src/js/constants.js`):**
+```js
+CalcConstants.OPERATORS      // string[] — ['+', '-', '*', '/', '^']
+CalcConstants.FUNCTIONS      // string[] — ['sqrt', 'sin', 'cos', 'tan', 'log', 'ln']
+CalcConstants.CONSTANTS      // string[] — ['pi', 'e']
+CalcConstants.DIGITS         // string[] — ['0'..'9']
+CalcConstants.PRECISION      // number — 10
+CalcConstants.getValue(name: string): number  // returns Math.PI for 'pi', Math.E for 'e', 0 otherwise
 ```
 
 **Event Delegation Pattern (from ADR):**
