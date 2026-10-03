@@ -55,7 +55,7 @@ const CalcParser = (() => {
    * @param {Token[]} tokens
    * @returns {Object|null}
    */
-  function parse(tokens) {
+  function parseTokens(tokens) {
     if (tokens.length === 0 || tokens[0].type === TOK.EOF) return null;
     const ctx = { tokens, pos: 0 };
     const node = parseExpression(ctx);
@@ -133,7 +133,7 @@ const CalcParser = (() => {
    */
   function parse(expression) {
     if (!expression || expression.trim() === '') return null;
-    return parse(tokenize(expression));
+    return parseTokens(tokenize(expression));
   }
 
   return { parse };
