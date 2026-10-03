@@ -21,7 +21,22 @@ The core math engine (Task 03) provides `CalcState` (state + Pub/Sub), `CalcPars
 
 ## Cross-Module Context (Injected by ORCH)
 
-**DOM Structure (from Task 02 index.html):**
+> **[ORCH ANNOTATION — 2025-07-17, during task/04 review:]** The DOM sketch below was ORCH's shorthand and does NOT match the merged, authoritative `src/index.html` (from task/02). `src/index.html` is the source of truth. Where they conflict, the real IDs/actions win. Accepted deviation — recorded so ENG is not confused and future task contracts do not re-introduce this conflict:
+>
+> | Contract sketch (WRONG) | Actual `src/index.html` (AUTHORITATIVE) |
+> |---|---|
+> | `id="expression-display"` | `id="expression"` (class `display__expression`) |
+> | `id="result-display"` | `id="result"` (class `display__result`) |
+> | `id="button-container"` (buttons) | `class="buttons"`, no `id` on the grid container |
+> | `data-action="digit" data-value="7"` | `data-action="digit-7"`, no `data-value` |
+> | `data-action="operator" data-value="+"` | one action per operator: `op-add` / `op-subtract` / `op-multiply` / `op-divide` |
+> | `data-action="function" data-value="sin"` | `data-action="sin"` (and `sqrt`, `cos`, `tan`, `log`, `ln`) |
+> | `data-action="backspace"`, `data-action="clear"` | `data-action="backspace"` ✓, `data-action="clear"` ✓ (match) |
+> | (not in sketch) | extra actions present: `negate` (±), `pi`, `e`, `open-paren`, `close-paren`, `decimal`, `equals` (=), `pow` (x^y, deferred in task/04), `fact` (n!, deferred/PRD gap) |
+>
+> ENG correctly bound to the real selectors — this task PASSES on that basis. **Future task contracts must reference the real `src/index.html` IDs/actions above, not this sketch.**
+
+**DOM Structure (from Task 02 index.html) — SUPERSEDED; see annotation above:**
 ```html
 <!-- Display area -->
 <div class="calculator">
