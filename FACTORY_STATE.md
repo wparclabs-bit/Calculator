@@ -9,12 +9,12 @@
 ## Active Task
 | Field | Value |
 |---|---|
-| Task ID | task/07-factorial-support (contract drafted; work NOT started) |
+| Task ID | task/07-factorial-support (contract **FINALIZED**; work NOT started) |
 | Assigned to | ENG — authorization: **NO** (do not start) |
 | Branch | planned: `task/07-factorial-support` (cut only on activation) |
-| Status | **READY_NOT_ACTIVATED / READY_FOR_PMO_AUTHORIZATION** — contract `tasks/task-07-factorial-support.md` drafted 2026-10-03, awaiting explicit PMO authorization. QA activation: **NO**. Do NOT auto-start. |
+| Status | **READY_NOT_ACTIVATED / READY_FOR_PMO_AUTHORIZATION** — contract `tasks/task-07-factorial-support.md` **FINALIZED** 2026-10-03 (postfix `!` notation decision locked), awaiting explicit PMO authorization. QA activation: **NO**. Do NOT auto-start. |
 
-**Note:** task/06 is CLOSED (reviewed and merged to main, ORCH merge commit `8351cd7`). The parser blocker remains CLEARED. QA is NOT activated. Task 07 is DRAFTED (READY_NOT_ACTIVATED / READY_FOR_PMO_AUTHORIZATION); ENG is NOT authorized and no work has started. No task beyond Task 07 is created or assigned. Remaining open PRD gaps are recorded below.
+**Note:** task/06 is CLOSED (reviewed and merged to main, ORCH merge commit `8351cd7`). The parser blocker remains CLEARED. QA is NOT activated. Task 07 is **FINALIZED** (READY_NOT_ACTIVATED / READY_FOR_PMO_AUTHORIZATION); ENG is NOT authorized and no work has started. **Factorial notation decision: postfix `!`** (evidence: PRD FR-03 `specs/prd.md:33` "factorial (n!)"; button `src/index.html:30` label `n!`). No task beyond Task 07 is created or assigned. Remaining open PRD gaps are recorded below.
 
 ## Completed Tasks
 - [x] task/00 — PRD Approved (Merged to main)
@@ -30,7 +30,7 @@
 - _(none — parser parse-collision blocker CLEARED by task/03a merge, ORCH merge commit `692b9ad`; remains cleared. Task 06's rejected commit `bfde339` was superseded by corrected commit `162a093`, which passed review and was merged.)_
 
 ## Open PRD Gaps (not scheduled beyond task/07)
-- Factorial (`n!`) — still unimplemented (PRD FR-03 partial gap; button `data-action="fact"`, label `n!`, exists in `src/index.html:30`). **Assigned to task/07-factorial-support** — contract drafted, READY_NOT_ACTIVATED / READY_FOR_PMO_AUTHORIZATION, ENG not yet authorized.
+- Factorial (`n!`) — still unimplemented (PRD FR-03 partial gap; button `data-action="fact"`, label `n!`, exists in `src/index.html:30`). **Assigned to task/07-factorial-support** — contract **FINALIZED** (postfix `!` notation decision locked; evidence `specs/prd.md:33` + `src/index.html:30`), READY_NOT_ACTIVATED / READY_FOR_PMO_AUTHORIZATION, ENG not yet authorized.
 - `x^y` / `pow` UI handler — **RESOLVED** (implemented and merged via task/06, ORCH merge commit `8351cd7`).
 - **Keyboard `^`: NOT currently supported.** `onKeydown` in `events.js` has no `^` branch, and PRD FR-07's keyboard list does not include `^`. Keyboard `^` is out of scope unless PMO formally amends PRD FR-07.
 - **Parser/evaluator `^` support: VERIFIED** on main (tokenizer: `^` is in `CalcConstants.OPERATORS`; parser: binary, right-associative `^` rule; evaluator: `^` → `Math.pow`; task/03a post-merge Node run `2^3` → 8).
@@ -38,7 +38,7 @@
 - QA cannot be considered complete until these gaps are adjudicated later.
 
 ## Next in Queue
-- Task 07 — contract drafted (READY_NOT_ACTIVATED / READY_FOR_PMO_AUTHORIZATION); ENG authorization: **NO**; activates only on explicit PMO authorization.
+- Task 07 — contract **FINALIZED** (READY_NOT_ACTIVATED / READY_FOR_PMO_AUTHORIZATION); ENG authorization: **NO**; activates only on explicit PMO authorization.
 - QA — integration blocker cleared; QA may be scheduled once authorized. Not activated.
 - No task beyond Task 07 is created.
 
@@ -60,3 +60,4 @@
 | 2026-10-03 | Factory state corrected for task/06 readiness | ORCH re-inspected merged main: removed STALE claim that keyboard `^` "already function" (verified ABSENT in `events.js` `onKeydown` and absent from PRD FR-07); parser/evaluator `^` support recorded as VERIFIED; task/06 recorded as Active Task (READY_NOT_ACTIVATED, ENG not authorized); factorial (`n!`) remains an open PRD gap — Task 07 expected but NOT created. |
 | 2026-10-03 | **task/06 PASSES re-review and is MERGED to main** (merge commit `8351cd7`) | ORCH re-verified the corrected ENG commit `162a093` from local git state (not the ENG report): branch `task/06-power-ui-handler`; remote ref `162a0933f5d0728b7578550f6f4f75d84e2157af`; exactly one commit ahead of main; exact commit message `[ENG] feat: wire x^y power button handler`; diff vs main touches ONLY `src/js/events.js` at 1 file changed, 2 insertions(+), 1 deletion(-). Accepted change present: `handlers['pow'] = () => append('^')` reusing the existing private `append`; delegation path verified (`index.html:29` `data-action="pow"` → `events.js:74`); no new DOM query, listener, or global; `CalcEvents` public surface unchanged except the accepted internal handler. Stale JSDoc corrected (`'pow'` wired, `'fact'` deferred). All forbidden items absent (no factorial/fact handler, no keyboard `^`, no parser/evaluator/constants/state/ui/errors/app/index.html/style.css/test/FACTORY_STATE change, no merge by ENG). The rejected commit `bfde339`'s commit-message deviation is RESOLVED by `162a093`. Browser runtime verification recorded as an open QA/UAT item, not a Task 06 blocker. |
 | 2026-10-03 | **task/07 prepared but NOT activated** | After the task/06 merge, ORCH drafted `tasks/task-07-factorial-support.md` (factorial `n!`, PRD FR-03 gap). Task 07 is the new Active Task: assigned ENG, status READY_NOT_ACTIVATED / READY_FOR_PMO_AUTHORIZATION, ENG authorization NO, QA activation NO. No task beyond Task 07 is created. PMO decides whether to authorize ENG for Task 07. |
+| 2026-10-03 | **task/07 contract FINALIZED — postfix `!` notation decision locked** | ORCH re-inspected merged main (main @ `4371df5`, working tree clean) and finalized `tasks/task-07-factorial-support.md`. **Notation decision: postfix `!`** (the earlier `fact(n)` draft recommendation is RETRACTED). Evidence: PRD FR-03 `specs/prd.md:33` "factorial (n!)" (no `fact(n)` mentioned anywhere) + button `src/index.html:30` label `n!` / aria-label `Factorial` / `data-action="fact"`. Verified: no `fact` handler in `events.js` (map `52–61`, JSDoc `50` defers it); the `FUNCTIONS` loop (`events.js:64`) would insert `fact(` only if `fact` were in `FUNCTIONS` (it is not, `constants.js:15`), so postfix `!` needs a manual handler. Verified: `!` not tokenized (`parser.js:47` throws `Unexpected character: !`), no postfix rule; no factorial in `evaluator.js` (no `fact` case, no `Factorial` node). Contract now fixes: allowed files = `parser.js`, `evaluator.js`, `events.js` only; precedence = `!` highest (tighter than `^`, unary minus, function calls, parens); max input = 170 (ORCH safe default; `n>170` → overflow error, not `Infinity`); errors inline (existing style, no `errors.js` change); exact ENG commit message `[ENG] feat: add postfix factorial (n!) support`. Status READY_NOT_ACTIVATED / READY_FOR_PMO_AUTHORIZATION; ENG authorization NO; QA activation NO. No task beyond Task 07 created. PMO makes one authorization decision. |
