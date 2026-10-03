@@ -9,14 +9,15 @@
 ## Active Task
 | Field | Value |
 |---|---|
-| Task ID | task/02-ui-layout |
-| Assigned to | UI-UX |
-| Branch | task/02-ui-layout |
+| Task ID | task/03-core-math-engine |
+| Assigned to | ENG |
+| Branch | task/03-core-math-engine |
 | Status | READY |
 
 ## Completed Tasks
 - [x] task/00 — PRD Approved (Merged to main)
 - [x] task/01 — Architecture Decision Record (Merged to main)
+- [x] task/02 — UI Layout (Merged to main)
 
 ## Blocked / Rejected
 - None

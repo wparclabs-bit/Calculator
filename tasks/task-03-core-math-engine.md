@@ -16,10 +16,36 @@ The UI layout (Task 02) defines the button grid and display elements. This task 
 
 ## Files to Read
 - `adr/01-tech-stack.md` — Sections 2.2 (File Structure, line budgets), 2.3 (Design Patterns: IIFE, Pub/Sub, Strategy)
-- `src/index.html` — To know the DOM element IDs/classes that state/ui modules will target
-- `src/style.css` — To understand CSS custom properties (for potential JS-driven style updates)
+- `src/js/constants.js` — (created in this task)
+- `src/js/state.js` — (created in this task)
+
+> **Note:** `src/index.html` and `src/style.css` DOM contract is injected below. Do not read these files — the contract below is the complete DOM surface ENG needs.
 
 ## Cross-Module Context (Injected by ORCH)
+
+### DOM Contract (from merged `src/index.html`)
+
+**Display elements (targeted by CalcUI in task/04):**
+```html
+<div id="expression" class="display__expression"></div>   <!-- expression text -->
+<div id="result" class="display__result">0</div>          <!-- computed result -->
+```
+
+**Button `data-action` values (all 24 buttons, used by event delegation in task/04):**
+
+| Category | `data-action` values |
+|---|---|
+| Scientific functions | `sqrt`, `sin`, `cos`, `tan`, `log`, `ln` |
+| Advanced ops | `pow`, `fact`, `pi`, `e`, `open-paren`, `close-paren` |
+| Actions | `clear`, `backspace`, `negate` |
+| Operators | `op-add`, `op-subtract`, `op-multiply`, `op-divide` |
+| Digits | `digit-0` through `digit-9` |
+| Other | `decimal`, `equals` |
+
+**Container selector for event delegation (task/04):**
+```js
+document.querySelector('.buttons')  // <div class="buttons" role="group">
+```
 
 **Public API Contract (from ADR):**
 
